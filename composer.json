@@ -2,6 +2,7 @@
     "name": "boltegg/whois",
     "description": "Whois class",
     "license": "MIT",
+    "keywords": ["whois"],
     "authors": [
         {
             "name": "Boltegg",
@@ -9,10 +10,11 @@
             "role": "Developer"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.0"
-    },
+    },    
     "autoload": {
-        "files": [ "Whois.php" ]
+        "psr-0": { "Whois": "src" }
     }
 }
