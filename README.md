@@ -13,26 +13,25 @@ composer require boltegg/whois @dev
 #### Get whois information
 
 ```php
-
 <?php
 
-$domain = new \Whois('google.com');
+$whois = new \Whois();
 
-$whois = $domain->info();
+$domain = 'google.com';
 
-echo $whois;
+$whois_result = $whois->getInfo($domain);
+echo $whois_result;
 
 ```
 
 #### Get domain status
 
 ```php
-
 <?php
 
-$domain = new \Whois('google.com');
+$whois = new \Whois();
 
-if ($domain->isAvailable()) {
+if ($whois->isAvailable($domain)) {
     echo "Domain is available\n";
 } else {
     echo "Domain is registered\n";
