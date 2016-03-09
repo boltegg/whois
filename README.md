@@ -4,7 +4,8 @@ PHP class to retrieve WHOIS information.
 
 ## Installing
 
-```composer require boltegg/whois @dev
+```
+composer require boltegg/whois @dev
 ```
 
 ## Methods
