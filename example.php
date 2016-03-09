@@ -8,17 +8,17 @@
 
 //include whois class
 include(__DIR__ . '\src\Whois.php');
+$whois = new \Whois();
 
-//set domain
-$domain = new \Whois('google.com');
+$domain = 'google.com';
 
 //get whois info
-$whois = $domain->info();
-echo $whois;
+$whois_result = $whois->getInfo($domain);
+echo $whois_result;
 
 
 //check domain status
-if ($domain->isAvailable()) {
+if ($whois->isAvailable($domain)) {
     echo "Domain is available\n";
 } else {
     echo "Domain is registered\n";

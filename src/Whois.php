@@ -13,7 +13,7 @@ class Whois
     /**
      * @param string $domain full domain name (without trailing dot)
      */
-    public function __construct($domain)
+    public function construct($domain)
     {
         $this->domain = $domain;
         // check $domain syntax and split full domain name on subdomain and TLDs
@@ -29,9 +29,11 @@ class Whois
         $this->servers = json_decode(file_get_contents( __DIR__.'/whois.servers.json' ), true);
     }
 
-    public function info()
+    public function getInfo($domain)
     {
-        if ($this->isValid()) {
+        $this->construct($domain);
+        
+        if ($this->isValid($domain)) {
             $whois_server = $this->servers[$this->TLDs][0];
 
             // If TLDs have been found
@@ -123,38 +125,43 @@ class Whois
         }
     }
 
-    public function htmlInfo()
+    public function getInfoHtml($domain)
     {
-        return nl2br($this->info());
+        return nl2br($this->getInfo($domain));
     }
 
     /**
      * @return string full domain name
      */
-    public function getDomain()
+    public function getDomain($domain)
     {
+        $this->construct($domain);
         return $this->domain;
     }
 
     /**
      * @return string top level domains separated by dot
      */
-    public function getTLDs()
+    public function getTLDs($domain)
     {
+        $this->construct($domain);
         return $this->TLDs;
     }
 
     /**
      * @return string return subdomain (low level domain)
      */
-    public function getSubDomain()
+    public function getSubDomain($domain)
     {
+        $this->construct($domain);
         return $this->subDomain;
     }
 
-    public function isAvailable()
+    public function isAvailable($domain)
     {
-        $whois_string = $this->info();
+        $this->construct($domain);
+        
+        $whois_string = $this->getInfo($domain);
         $not_found_string = '';
         if (isset($this->servers[$this->TLDs][1])) {
            $not_found_string = $this->servers[$this->TLDs][1];
@@ -179,8 +186,10 @@ class Whois
         }
     }
 
-    public function isValid()
+    public function isValid($domain)
     {
+        $this->construct($domain);
+        
         if (
             isset($this->servers[$this->TLDs][0])
             && strlen($this->servers[$this->TLDs][0]) > 6
