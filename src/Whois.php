@@ -39,7 +39,9 @@ class Whois
                 }
             }
         }
-        throw new \InvalidArgumentException("Invalid $this->domain syntax");
+        http_response_code(404);
+        echo 'Domain is not valid or domain zone not found';
+        die;
     }
 
     public function getInfo($domain)
@@ -69,7 +71,8 @@ class Whois
                 return $whois;
             }
         }
-        echo '(empty answer)';die;
+        echo '(empty answer)';
+        die;
     }
 
     protected function getWhoisWithCurl()
